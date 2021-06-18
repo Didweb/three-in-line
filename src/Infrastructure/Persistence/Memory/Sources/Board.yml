@@ -1,0 +1,5 @@
+board:
+    statusGame: true
+    rows: 0
+    columns: 0
+    cells: {  }
