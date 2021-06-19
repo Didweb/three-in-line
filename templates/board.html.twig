@@ -1,9 +1,19 @@
 <h2>Board</h2>
 <table border="1">
-{% for rows in board.cells() %}
+{% for keyRow, rows in board.cells() %}
 <tr>
-    {% for columns in rows %}
-      <td>  <img src="{{ asset('images/'~columns~'.png') }}"></td>
+    {% for keyColumn, columns in rows %}
+      <td>
+            {% if board.cells()[keyRow][keyColumn]['content'] == '0' %}
+                  <a href="{{ url('move_human', {'rowSelect' : keyRow , 'columnSelect': keyColumn}) }}">
+                    <img src="{{ asset('images/'~columns['content']~'.png') }}">
+                  </a>
+                  {% else %}
+                        <img src="{{ asset('images/'~columns['content']~'.png') }}">
+            {% endif  %}
+
+
+      </td>
     {% endfor %}
 </tr>
 {% endfor %}

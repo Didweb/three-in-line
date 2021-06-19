@@ -10,13 +10,25 @@ final class Board
     private int $rows;
     private int $columns;
     private array $cells;
+    private string $turn;
 
-    public function __construct(bool $gameIsActive = true, int $rows = 0, int $columns = 0, array $cells = [])
-    {
+    public function __construct(
+        bool $gameIsActive = true,
+        int $rows = 0,
+        int $columns = 0,
+        array $cells = [],
+        string $turn = 'Human'
+    ) {
         $this->gameIsActive = $gameIsActive;
         $this->rows = $rows;
         $this->columns = $columns;
         $this->cells = $cells;
+        $this->turn = $turn;
+    }
+
+    public function turn(): string
+    {
+        return $this->turn;
     }
 
     public function cells(): array
@@ -24,6 +36,10 @@ final class Board
         return $this->cells;
     }
 
+    public function changeTurn($player): void
+    {
+        $this->turn = $player;
+    }
 
     public function boardDataJson(): string
     {
@@ -31,37 +47,84 @@ final class Board
             [
                 'statusGame' => $this->gameIsActive,
                 'rows' => $this->rows,
-                'columns' => $this->columns
+                'columns' => $this->columns,
+                'turn' => $this->turn
             ]
         );
         return json_encode($board);
     }
 
-    public function buildBoard(int $rows, int $columns): array
+
+    public function markCell(string $prefixPlayer, string $namePlayer, int $row, int $column): void
     {
-        $this->rows = $rows;
-        $this->columns = $columns;
+        if($this->cells[$row][$column]['content'] != "0") {
+            throw new \Exception('This cell has already been marked. Not free');
+        }
+        $this->cells[$row][$column]['content'] = $prefixPlayer;
+        $this->changeTurn($namePlayer);
+    }
+
+
+
+    public function buildBoard(int $dimension): array
+    {
+        $this->rows = $dimension;
+        $this->columns = $dimension;
         $cells = [];
-        for ($r = 0; $r <= $rows; $r++) {
-            for ($c = 0; $c <= $columns; $c++) {
-                $cells[$r][$c] = 0;
+        $loop = 0;
+        for ($rowLoop = 0; $rowLoop <= $dimension; $rowLoop++) {
+
+            for ($columnLoop = 0; $columnLoop <= $dimension; $columnLoop++) {
+                $cells[$rowLoop][$columnLoop] = [
+                                'content' => 0,
+                                'rating' => $this->calculateRating($rowLoop, $columnLoop, $loop)
+                                ];
+
             }
+            $loop++;
         }
         $this->cells = $cells;
 
         return $this->cells;
     }
 
+    private function calculateRating($rowLoop, $columnLoop, $loop): int
+    {
+        $rating = 2;
+        $valueSum = 0;
+        $realColumn = $this->columns ;
+        /** Calculate corners */
+        if(($columnLoop == 0 || $columnLoop == $this->columns)
+            && ($rowLoop == 0 || $rowLoop == $this->rows)) {
+            $valueSum = 1;
+        }
+
+        /** Calcualte first diagonal*/
+        if($rowLoop == $columnLoop) {
+            $valueSum = 1;
+        }
+
+        /** Calcualte second diagonal*/
+        if($columnLoop == ($realColumn - $loop) )  {
+            $valueSum = 1;
+        }
+
+        return $rating+$valueSum;
+
+    }
+
     public function create(
         bool $gameIsActive,
         int $rows,
         int $columns,
-        array $cells
+        array $cells,
+        string $turn
     ): Board {
         $this->gameIsActive = $gameIsActive;
         $this->rows = $rows;
         $this->columns = $columns;
         $this->cells = $cells;
+        $this->turn = $turn;
 
         return $this;
     }
@@ -74,6 +137,7 @@ final class Board
                 'rows' => $this->rows,
                 'columns' => $this->columns,
                 'cells' => $this->cells,
+                'turn' => $this->turn
 
             ]
         ];

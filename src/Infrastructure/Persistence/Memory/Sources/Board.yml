@@ -1,5 +1,6 @@
 board:
     gameIsActive: true
-    rows: 2
-    columns: 2
-    cells: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+    rows: 4
+    columns: 4
+    cells: [[{ content: R, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: H, rating: 3 }], [{ content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }], [{ content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }], [{ content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }], [{ content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }]]
+    turn: Robot

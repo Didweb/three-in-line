@@ -2,7 +2,10 @@
 
 {% block body %}
     <h1>Three In Line</h1>
-    <p>Kata PHP Hexagonal architecture</p>
+    <p>
+        Turn <b>{{ board.turn() }}</b>
+        <br> <a href="{{ url('home_page') }}">Reinicair partida</a>
+    </p>
     {% include 'board.html.twig' %}
     {{ dump(board) }}
 {% endblock %}

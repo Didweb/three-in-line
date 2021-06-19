@@ -6,5 +6,5 @@ namespace App\Domain\Model;
 
 interface Player
 {
-    public function move(Board $board): array;
+    public static function move(Board $board, ?int $row, ?int $column): void;
 }
