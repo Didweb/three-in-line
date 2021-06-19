@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Controller;
 
-use App\Domain\Model\Board;
+use App\Domain\Repository\BoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,10 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HomeController extends AbstractController
 {
-    private Board $board;
-    public function __construct(Board $board)
+    private BoardRepository $repository;
+
+    public function __construct(BoardRepository $repository)
     {
-        $this->board = $board;
+        $this->repository = $repository;
     }
 
 
@@ -27,9 +28,9 @@ final class HomeController extends AbstractController
      */
     public function index(Request $request): Response
     {
-
+        $board = $this->repository->getBoardData();
         return $this->render('home/index.html.twig',
-        ['board' => $this->board->boardDataJson()]
+        ['board' => $board]
         );
     }
 

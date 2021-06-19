@@ -4,29 +4,19 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
-
-use App\Application\Command\BoardCommand;
-use App\Domain\Repository\BoardRepository;
-
 final class Board
 {
     private bool $gameIsActive;
     private int $rows;
     private int $columns;
     private array $cells;
-    private BoardCommand $jsonBoard;
 
-    public function __construct(BoardRepository $repository, BoardCommand $boardCommand)
+    public function __construct(bool $gameIsActive, int $rows, int $columns, array $cells)
     {
-
-        $this->jsonBoard = $repository->getBoardData($boardCommand);
-
-        $this->create(
-            $this->jsonBoard->gameIsActive(),
-            $this->jsonBoard->rows(),
-            $this->jsonBoard->columns(),
-            $this->jsonBoard->cells(),
-        );
+        $this->gameIsActive = $gameIsActive;
+        $this->rows = $rows;
+        $this->columns = $columns;
+        $this->cells = $cells;
     }
 
 

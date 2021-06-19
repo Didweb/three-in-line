@@ -20,23 +20,21 @@ final class InMemoryBoardRepository implements BoardRepository
 
 
 
-    public function getBoardData(BoardCommand $boardCommand): BoardCommand
+    public function getBoardData(): array
     {
-        $this->boardCommand = $boardCommand;
-        dump($this->boardCommand);
-
+        $result = [];
         $this->createFileData();
-
 
         $finder = new Finder();
         $finder->files()->in(self::PATH_DIR_SOURCES);
         if ($finder->hasResults()) {
             foreach ($finder as $file) {
                 $config = Yaml::parseFile($file->getRealPath());
+                $result['board'] = reset($config);
             }
         }
 
-        return $this->boardCommand;
+        return $result;
     }
 
     public function createFileData(): void
