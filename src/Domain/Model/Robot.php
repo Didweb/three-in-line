@@ -11,10 +11,23 @@ final class Robot implements Player
 {
     const  PREFIX_PLAYER = 'R';
     const  NAME_PLAYER = 'Robot';
+    private array $check;
 
-    public static function move(Board $board, int $row =  null, int $column = null): void
+    public  function move(Board $board, int $row =  null, int $column = null): void
     {
-        $bestOption = Intelligence::bestOption($board);
-        $board->markCell(self::PREFIX_PLAYER, self::NAME_PLAYER, $bestOption['row'], $bestOption['column']);
+        $intelligence = new Intelligence();
+
+        $bestOption = $intelligence->bestOption($board);
+        if($bestOption !== null) {
+            $board->markCell(self::PREFIX_PLAYER, self::NAME_PLAYER, $bestOption['row'], $bestOption['column']);
+        }
+
     }
+
+    public function check(): array
+    {
+        return $this->check;
+    }
+
+
 }

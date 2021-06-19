@@ -33,13 +33,17 @@ final class MoveController extends AbstractController
     public function index(Request $request, int $rowSelect, int $columnSelect): Response
     {
         $board = $this->repository->getBoardData();
-
-        Human::move($board, $rowSelect, $columnSelect);
-        Robot::move($board);
+        $humanPlayer =  new Human();
+        $humanPlayer->move($board, $rowSelect, $columnSelect);
+        $robotPlayer =  new Robot();
+        $robotPlayer->move($board);
+        dump($board->cells());
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',
-                             ['board' => $board]
+                             [
+                              'board' => $board,
+                                 ]
         );
     }
 

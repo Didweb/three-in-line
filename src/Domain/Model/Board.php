@@ -26,6 +26,7 @@ final class Board
         $this->turn = $turn;
     }
 
+
     public function turn(): string
     {
         return $this->turn;
@@ -57,14 +58,17 @@ final class Board
 
     public function markCell(string $prefixPlayer, string $namePlayer, int $row, int $column): void
     {
-        if($this->cells[$row][$column]['content'] != "0") {
+        if($this->cells[$row][$column]['content'] != 0) {
             throw new \Exception('This cell has already been marked. Not free');
         }
         $this->cells[$row][$column]['content'] = $prefixPlayer;
         $this->changeTurn($namePlayer);
     }
 
-
+    public function updateRatingsCells($cells): void
+    {
+        $this->cells = $cells;
+    }
 
     public function buildBoard(int $dimension): array
     {
@@ -85,6 +89,25 @@ final class Board
         }
         $this->cells = $cells;
 
+        return $this->cells;
+    }
+
+    public function cleanValuesCells(): array
+    {
+        $cells = $this->cells;
+        $loop = 0;
+        for ($rowLoop = 0; $rowLoop <= $this->rows; $rowLoop++) {
+
+            for ($columnLoop = 0; $columnLoop <= $this->rows; $columnLoop++) {
+                $cells[$rowLoop][$columnLoop] = [
+                    'content' => $cells[$rowLoop][$columnLoop]['content'],
+                    'rating' => $this->calculateRating($rowLoop, $columnLoop, $loop)
+                ];
+
+            }
+            $loop++;
+        }
+        $this->cells = $cells;
         return $this->cells;
     }
 

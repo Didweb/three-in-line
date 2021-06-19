@@ -33,7 +33,8 @@ final class HomeController extends AbstractController
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',
-        ['board' => $board]
+        ['board' => $board,
+            'robotCheck' => $board->cells(),]
         );
     }
 
