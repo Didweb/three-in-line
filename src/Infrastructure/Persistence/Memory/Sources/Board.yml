@@ -1,5 +1,5 @@
 board:
-    statusGame: true
-    rows: 0
-    columns: 0
-    cells: {  }
+    gameIsActive: true
+    rows: 2
+    columns: 2
+    cells: [[0, 0, 0], [0, 0, 0], [0, 0, 0]]

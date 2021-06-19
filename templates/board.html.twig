@@ -1,0 +1,11 @@
+<h2>Board</h2>
+<table border="1">
+{% for rows in board.cells() %}
+<tr>
+    {% for columns in rows %}
+      <td>  <img src="{{ asset('images/'~columns~'.png') }}"></td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
+<hr>
