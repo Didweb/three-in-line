@@ -61,8 +61,7 @@ final class Watcher
         if (($this->allies > 0) && ($this->enemies > 0)) {
             $this->rating = 0;
         }
-        dump($this->responseData());
-        dump($this->rating);
+
         $this->resetEnemiesAndAllies();
         return $this->rating;
     }
@@ -99,7 +98,5 @@ final class Watcher
         $this->enemies = 0;
         $this->allies = 0;
     }
-
-
 
 }

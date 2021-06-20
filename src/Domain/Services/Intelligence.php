@@ -55,7 +55,7 @@ final class Intelligence
             }
             $loop++;
         }
-dump($cells);
+
         return $this->candidates($cells, $highestScore);
     }
 
@@ -74,7 +74,7 @@ dump($cells);
                 }
             }
         }
-        dump($candidates);
+
         return $candidates;
     }
 }
