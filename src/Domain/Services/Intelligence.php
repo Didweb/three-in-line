@@ -49,7 +49,7 @@ final class Intelligence
                 $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
                 $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
 
-                $currentRating = $currentRating + $watcherDiagonalFirst->watchDiagonalFirst();
+                $currentRating = $currentRating + $watcherDiagonalFirst->watching();
 
 
                 $cells[$keyRow][$keyColumn]['rating'] = $currentRating;

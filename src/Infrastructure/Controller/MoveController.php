@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Infrastructure\Controller;
 
 
-use App\Domain\Model\Human;
-use App\Domain\Model\Robot;
+use App\Application\Command\HumanCommandHandler;
+use App\Application\Command\RobotCommandHandler;
 use App\Domain\Repository\BoardRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,17 +33,17 @@ final class MoveController extends AbstractController
     public function index(Request $request, int $rowSelect, int $columnSelect): Response
     {
         $board = $this->repository->getBoardData();
-        $humanPlayer =  new Human();
+
+        $humanPlayer =  new HumanCommandHandler();
         $humanPlayer->move($board, $rowSelect, $columnSelect);
-        $robotPlayer =  new Robot();
+
+        $robotPlayer =  new RobotCommandHandler();
         $robotPlayer->move($board);
-        dump($board->cells());
+
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',
-                             [
-                              'board' => $board,
-                                 ]
+                             ['board' => $board]
         );
     }
 

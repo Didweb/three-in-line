@@ -7,7 +7,7 @@ namespace App\Domain\Model;
 use \App\Domain\Model\Player;
 use App\Domain\Services\Intelligence;
 
-final class Robot implements Player
+class Robot implements Player
 {
     const  PREFIX_PLAYER = 'R';
     const  NAME_PLAYER = 'Robot';

@@ -14,7 +14,7 @@ final class WatchDiagonalFirst extends Watcher
         parent::__construct($prefixEnemies,  $prefixAllies, $totalColumns);
     }
 
-    public function watchDiagonalFirst(): int
+    public function watching(): int
     {
         $this->rating = 0;
         for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {

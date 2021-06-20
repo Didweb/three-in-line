@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Services\Watcher;
 
 
-class Watcher
+abstract class Watcher
 {
     protected int $enemies;
     protected int $allies;
@@ -25,6 +25,8 @@ class Watcher
         $this->enemies = 0;
         $this->allies = 0;
     }
+
+    abstract protected function watching(): int;
 
 
     public function data(int $keyRowLoop, int $keyColumnLoop, array $cells): void
