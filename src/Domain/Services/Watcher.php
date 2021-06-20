@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace App\Domain\Services;
 
 
-final class Watcher
+class Watcher
 {
-
-    private int $enemies;
-    private int $allies;
-    private string $prefixEnemies;
-    private string $prefixAllies;
-    private int $totalColumns;
-    private int $rating;
-    private int $keyRowLoop;
-    private int $keyColumnLoop;
+    protected int $enemies;
+    protected int $allies;
+    protected string $prefixEnemies;
+    protected string $prefixAllies;
+    protected int $totalColumns;
+    protected int $rating;
+    protected int $keyRowLoop;
+    protected int $keyColumnLoop;
     private array $cells;
 
     public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
@@ -27,45 +26,13 @@ final class Watcher
         $this->allies = 0;
     }
 
+
     public function data(int $keyRowLoop, int $keyColumnLoop, array $cells): void
     {
         $this->keyRowLoop = $keyRowLoop;
         $this->keyColumnLoop = $keyColumnLoop;
         $this->cells = $cells;
     }
-
-    public function watchDiagonalFirst(): int
-    {
-        $this->rating = 0;
-        for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
-
-            if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
-                $this->resetEnemiesAndAllies();
-                return 0;
-            }
-
-            $this->isEnemies($nPosition, $nPosition);
-
-            $this->isAllies($nPosition, $nPosition);
-        }
-
-        if ($this->enemies == $this->totalColumns) {
-            $this->rating = $this->rating + 100;
-        }
-
-
-        if (($this->allies > 0) && ($this->enemies <= 0)) {
-            $this->rating = $this->rating + 5;
-        }
-
-        if (($this->allies > 0) && ($this->enemies > 0)) {
-            $this->rating = 0;
-        }
-
-        $this->resetEnemiesAndAllies();
-        return $this->rating;
-    }
-
 
 
     public function isEnemies(int $nPositionRow, int $nPositionColumn):void

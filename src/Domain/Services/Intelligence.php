@@ -35,23 +35,28 @@ final class Intelligence
         $highestScore = 0;
         $totalColumns = count($cells) - 1;
 
-        $watcher = new Watcher('H','R', $totalColumns);
+        $watcherData = [
+            'prefixEnemies' => 'H',
+            'prefixAllies' => 'R',
+            'totalColumns' => $totalColumns
+        ];
 
         foreach ($cells as $keyRow => $column) {
             foreach ($column as $keyColumn => $value) {
                 $currentRating = $cells[$keyRow][$keyColumn]['rating'];
-                $watcher->data($keyRow, $keyColumn, $cells);
 
-                $currentRating = $currentRating + $watcher->watchDiagonalFirst();
+                $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
+                $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
+
+                $currentRating = $currentRating + $watcherDiagonalFirst->watchDiagonalFirst();
 
 
                 $cells[$keyRow][$keyColumn]['rating'] = $currentRating;
 
-                if($currentRating > $highestScore
+                if ($currentRating > $highestScore
                     && (int)$cells[$keyRow][$keyColumn]['content'] == 0) {
                     $highestScore = $currentRating;
                 }
-
             }
             $loop++;
         }
