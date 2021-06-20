@@ -39,15 +39,18 @@ abstract class Watcher
 
     public function isEnemies(int $nPositionRow, int $nPositionColumn):void
     {
-        if ($this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixEnemies) {
+        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixEnemies) {
             $this->enemies = $this->enemies + 1;
+            dump('SUMO!!!! '.$nPositionRow.'/'.$nPositionRow);
+            dump($this->cells[$nPositionRow][$nPositionColumn]['content']);
+            dump('prefixenemis: '.$this->prefixEnemies);
         }
 
     }
 
     public function isAllies(int $nPositionRow, int $nPositionColumn): void
     {
-        if ($this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixAllies) {
+        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixAllies) {
             $this->allies = $this->allies + 1;
         }
     }

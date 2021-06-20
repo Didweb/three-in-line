@@ -12,11 +12,12 @@ final class WatchDiagonalFirst extends Watcher
     public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
     {
         parent::__construct($prefixEnemies,  $prefixAllies, $totalColumns);
+        $this->rating = 0;
     }
 
     public function watching(): int
     {
-        $this->rating = 0;
+
         for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
 
             if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
@@ -29,6 +30,7 @@ final class WatchDiagonalFirst extends Watcher
             $this->isAllies($nPosition, $nPosition);
         }
 
+
         if ($this->enemies == $this->totalColumns) {
             $this->rating = $this->rating + 100;
         }
@@ -37,6 +39,12 @@ final class WatchDiagonalFirst extends Watcher
         if (($this->allies > 0) && ($this->enemies <= 0)) {
             $this->rating = $this->rating + 5;
         }
+
+
+        if (($this->allies <= 0) && ($this->enemies > 0)) {
+            $this->rating = $this->rating + 5;
+        }
+
 
         if (($this->allies > 0) && ($this->enemies > 0)) {
             $this->rating = 0;
