@@ -50,4 +50,10 @@ Los criterios para valorar los puntos de cada celda. Hace un barrido de las celd
 
 ---
 
+### Persistencia de datos
+
+Se almacenan los datos del tablero en un archivo en formato Yaml. La persistencia esta desacoplada mediante inversión de dependencias para que pueda ser substituida por ejemplo por un MySQL.
+
+---
+
 #### PENDIENTE TESTING
