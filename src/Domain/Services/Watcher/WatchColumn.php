@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Services\Watcher;
 
 
-final class WatchRow extends Watcher
+final class WatchColumn extends Watcher
 {
     public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
     {
@@ -15,11 +15,10 @@ final class WatchRow extends Watcher
 
     public function watching(): int
     {
-
         for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
-            $this->isEnemies($this->keyRowLoop, $nPositionColumn);
+            $this->isEnemies($nPositionColumn, $this->keyColumnLoop);
 
-            $this->isAllies($this->keyRowLoop, $nPositionColumn);
+            $this->isAllies($nPositionColumn, $this->keyColumnLoop);
         }
 
         $this->fullOfEnemies();

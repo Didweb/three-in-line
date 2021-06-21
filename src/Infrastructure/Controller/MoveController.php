@@ -40,6 +40,7 @@ final class MoveController extends AbstractController
         $robotPlayer =  new RobotCommandHandler();
         $robotPlayer->move($board);
 
+
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',

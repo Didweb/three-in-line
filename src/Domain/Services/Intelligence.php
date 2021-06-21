@@ -46,6 +46,7 @@ final class Intelligence
             foreach ($column as $keyColumn => $value) {
                 $currentRating = $cells[$keyRow][$keyColumn]['rating'];
 
+
                 $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
                 $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
 
@@ -55,26 +56,35 @@ final class Intelligence
                 $watcherRow = WatcherFactory::createrWatcher('WatchRow', $watcherData);
                 $watcherRow->data($keyRow, $keyColumn, $cells);
 
-                dump('Inteligence: '.$keyRow.'/'.$keyColumn);
+                $watcherColumn = WatcherFactory::createrWatcher('WatchColumn', $watcherData);
+                $watcherColumn->data($keyRow, $keyColumn, $cells);
+
 
                 $currentRating = $currentRating + $watcherDiagonalFirst->watching();
                 $currentRating = $currentRating + $watcherDiagonalSecond->watching();
                 $currentRating = $currentRating + $watcherRow->watching();
+                $currentRating = $currentRating + $watcherColumn->watching();
 
 
-                $cells[$keyRow][$keyColumn]['rating'] = $currentRating;
+                $cells[$keyRow][$keyColumn]['rating'] = $this->ratingForOnnlyVOidCells($cells[$keyRow][$keyColumn], $currentRating);
 
                 if ($currentRating > $highestScore
-                    && (int)$cells[$keyRow][$keyColumn]['content'] == 0) {
+                    && (string)$cells[$keyRow][$keyColumn]['content'] == "0") {
                     $highestScore = $currentRating;
                 }
             }
+
             $loop++;
         }
 
         return $this->candidates($cells, $highestScore);
     }
 
+
+    private function ratingForOnnlyVOidCells(array $cell, int $currentRating): int
+    {
+        return ((int)$cell['content'] == 0) ? $currentRating : 0;
+    }
 
     private function candidates(array $cells, int $highestScore): array
     {
@@ -90,7 +100,7 @@ final class Intelligence
                 }
             }
         }
-
+        dump($candidates);
         return $candidates;
     }
 }

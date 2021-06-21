@@ -12,8 +12,8 @@ class Human implements Player
 
     public  function move(Board $board, int $row = null, int $column = null): void
     {
-
         $board->markCell(self::PREFIX_PLAYER, self::NAME_PLAYER, $row, $column);
 
     }
+
 }

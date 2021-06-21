@@ -15,6 +15,7 @@ class Robot implements Player
 
     public  function move(Board $board, int $row =  null, int $column = null): void
     {
+
         $intelligence = new Intelligence();
 
         $bestOption = $intelligence->bestOption($board);
@@ -28,6 +29,5 @@ class Robot implements Player
     {
         return $this->check;
     }
-
 
 }

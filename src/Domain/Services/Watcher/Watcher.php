@@ -15,7 +15,7 @@ abstract class Watcher
     protected int $rating;
     protected int $keyRowLoop;
     protected int $keyColumnLoop;
-    private array $cells;
+    protected array $cells;
 
     public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
     {
@@ -27,6 +27,7 @@ abstract class Watcher
     }
 
     abstract protected function watching(): int;
+
 
 
     public function data(int $keyRowLoop, int $keyColumnLoop, array $cells): void
