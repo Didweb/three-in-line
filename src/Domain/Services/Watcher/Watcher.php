@@ -41,9 +41,6 @@ abstract class Watcher
     {
         if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixEnemies) {
             $this->enemies = $this->enemies + 1;
-            dump('SUMO!!!! '.$nPositionRow.'/'.$nPositionRow);
-            dump($this->cells[$nPositionRow][$nPositionColumn]['content']);
-            dump('prefixenemis: '.$this->prefixEnemies);
         }
 
     }

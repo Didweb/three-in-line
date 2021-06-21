@@ -16,33 +16,31 @@ final class WatchDiagonalSecond extends Watcher
 
     public function watching(): int
     {
-        $this->rating = 0;
-//        for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
-//
-//            if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
-//                $this->resetEnemiesAndAllies();
-//                return 0;
-//            }
-//
-//            $this->isEnemies($nPosition, $nPosition);
-//
-//            $this->isAllies($nPosition, $nPosition);
-//        }
-//
-//        if ($this->enemies == $this->totalColumns) {
-//            $this->rating = $this->rating + 100;
-//        }
-//
-//
-//        if (($this->allies > 0) && ($this->enemies <= 0)) {
-//            $this->rating = $this->rating + 5;
-//        }
-//
-//        if (($this->allies > 0) && ($this->enemies > 0)) {
-//            $this->rating = 0;
-//        }
-//
-//        $this->resetEnemiesAndAllies();
+        $loop = 0;
+        for ($nPosition = $this->totalColumns; $nPosition >= 0 ; $nPosition--) {
+
+            if (($this->keyColumnLoop != $nPosition) == ($this->keyRowLoop != $loop)) {
+                $this->resetEnemiesAndAllies();
+                return 0;
+            }
+
+            $this->isEnemies($loop, $nPosition);
+
+            $this->isAllies($loop, $nPosition);
+
+            $loop++;
+        }
+
+        $this->fullOfEnemies();
+
+        $this->isThereAnyAlliedNoEnemies();
+
+        $this->isThereAnyEnemy();
+
+        $this->lockedAreAlliesAndEnemies();
+
+        $this->resetEnemiesAndAllies();
+
         return $this->rating;
     }
 }

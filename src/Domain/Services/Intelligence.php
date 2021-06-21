@@ -49,7 +49,17 @@ final class Intelligence
                 $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
                 $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
 
+                $watcherDiagonalSecond = WatcherFactory::createrWatcher('WatchDiagonalSecond', $watcherData);
+                $watcherDiagonalSecond->data($keyRow, $keyColumn, $cells);
+
+                $watcherRow = WatcherFactory::createrWatcher('WatchRow', $watcherData);
+                $watcherRow->data($keyRow, $keyColumn, $cells);
+
+                dump('Inteligence: '.$keyRow.'/'.$keyColumn);
+
                 $currentRating = $currentRating + $watcherDiagonalFirst->watching();
+                $currentRating = $currentRating + $watcherDiagonalSecond->watching();
+                $currentRating = $currentRating + $watcherRow->watching();
 
 
                 $cells[$keyRow][$keyColumn]['rating'] = $currentRating;

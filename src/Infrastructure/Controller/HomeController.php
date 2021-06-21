@@ -29,7 +29,7 @@ final class HomeController extends AbstractController
     public function index(Request $request): Response
     {
         $board = $this->repository->getBoardData();
-        $board->buildBoard(2);
+        $board->buildBoard(3);
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',

@@ -16,6 +16,10 @@ final class WatcherFactory
             case 'WatchDiagonalSecond':
                 return new WatchDiagonalSecond($data['prefixEnemies'], $data['prefixAllies'], $data['totalColumns']);
                 break;
+
+            case 'WatchRow':
+                return new WatchRow($data['prefixEnemies'], $data['prefixAllies'], $data['totalColumns']);
+                break;
         }
 
     }
