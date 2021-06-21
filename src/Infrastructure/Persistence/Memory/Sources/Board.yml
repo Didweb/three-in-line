@@ -1,6 +1,6 @@
 board:
     gameIsActive: true
-    rows: 3
-    columns: 3
-    cells: [[{ content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }], [{ content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }], [{ content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }], [{ content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }]]
-    turn: Human
+    rows: 4
+    columns: 4
+    cells: [[{ content: R, rating: 13 }, { content: 0, rating: 2 }, { content: H, rating: 7 }, { content: H, rating: 7 }, { content: H, rating: 8 }], [{ content: R, rating: 22 }, { content: 0, rating: 8 }, { content: 0, rating: 7 }, { content: 0, rating: 8 }, { content: H, rating: 12 }], [{ content: 0, rating: 12 }, { content: 0, rating: 7 }, { content: H, rating: 8 }, { content: 0, rating: 17 }, { content: 0, rating: 12 }], [{ content: 0, rating: 12 }, { content: 0, rating: 8 }, { content: R, rating: 22 }, { content: R, rating: 23 }, { content: 0, rating: 12 }], [{ content: R, rating: 13 }, { content: 0, rating: 7 }, { content: 0, rating: 7 }, { content: 0, rating: 7 }, { content: 0, rating: 18 }]]
+    turn: Robot

@@ -32,7 +32,6 @@ final class WatchRow extends Watcher
 
         $this->resetEnemiesAndAllies();
 
-
         return $this->rating;
     }
 }

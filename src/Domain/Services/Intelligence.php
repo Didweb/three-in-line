@@ -42,21 +42,19 @@ final class Intelligence
             'totalColumns' => $totalColumns
         ];
 
+
         foreach ($cells as $keyRow => $column) {
             foreach ($column as $keyColumn => $value) {
                 $currentRating = $cells[$keyRow][$keyColumn]['rating'];
 
-
                 $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
-                $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
-
                 $watcherDiagonalSecond = WatcherFactory::createrWatcher('WatchDiagonalSecond', $watcherData);
-                $watcherDiagonalSecond->data($keyRow, $keyColumn, $cells);
-
                 $watcherRow = WatcherFactory::createrWatcher('WatchRow', $watcherData);
-                $watcherRow->data($keyRow, $keyColumn, $cells);
-
                 $watcherColumn = WatcherFactory::createrWatcher('WatchColumn', $watcherData);
+
+                $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
+                $watcherDiagonalSecond->data($keyRow, $keyColumn, $cells);
+                $watcherRow->data($keyRow, $keyColumn, $cells);
                 $watcherColumn->data($keyRow, $keyColumn, $cells);
 
 
@@ -66,7 +64,7 @@ final class Intelligence
                 $currentRating = $currentRating + $watcherColumn->watching();
 
 
-                $cells[$keyRow][$keyColumn]['rating'] = $this->ratingForOnnlyVOidCells($cells[$keyRow][$keyColumn], $currentRating);
+                $cells[$keyRow][$keyColumn]['rating'] = $this->ratingForOnlyVoidCells($cells[$keyRow][$keyColumn], $currentRating);
 
                 if ($currentRating > $highestScore
                     && (string)$cells[$keyRow][$keyColumn]['content'] == "0") {
@@ -81,7 +79,7 @@ final class Intelligence
     }
 
 
-    private function ratingForOnnlyVOidCells(array $cell, int $currentRating): int
+    private function ratingForOnlyVoidCells(array $cell, int $currentRating): int
     {
         return ((int)$cell['content'] == 0) ? $currentRating : 0;
     }
@@ -100,7 +98,7 @@ final class Intelligence
                 }
             }
         }
-        dump($candidates);
+
         return $candidates;
     }
 }
