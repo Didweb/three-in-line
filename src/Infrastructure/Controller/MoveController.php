@@ -42,9 +42,9 @@ final class MoveController extends AbstractController
 
 
         $this->repository->save($board);
-
+        $nLine = (int)$board->rows() + 1;
         return $this->render('home/index.html.twig',
-                             ['board' => $board]
+                             ['board' => $board, 'nLine' => $nLine]
         );
     }
 

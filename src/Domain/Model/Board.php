@@ -26,6 +26,12 @@ final class Board
         $this->turn = $turn;
     }
 
+    public function rows(): int
+    {
+        return $this->rows;
+    }
+
+
 
     public function turn(): string
     {

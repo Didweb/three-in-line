@@ -28,13 +28,14 @@ final class HomeController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        dump($request->request->get('nLine'));
         $board = $this->repository->getBoardData();
-        $board->buildBoard(4);
+        $nLine = ($request->get('nLine'))?(int)$request->get('nLine'):2;
+        $board->buildBoard($nLine);
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',
-        ['board' => $board,
-            'robotCheck' => $board->cells(),]
+        ['board' => $board, 'nLine' => $nLine +1 ]
         );
     }
 

@@ -1,6 +1,6 @@
 board:
     gameIsActive: true
-    rows: 4
-    columns: 4
-    cells: [[{ content: R, rating: 13 }, { content: 0, rating: 2 }, { content: H, rating: 7 }, { content: H, rating: 7 }, { content: H, rating: 8 }], [{ content: R, rating: 22 }, { content: 0, rating: 8 }, { content: 0, rating: 7 }, { content: 0, rating: 8 }, { content: H, rating: 12 }], [{ content: 0, rating: 12 }, { content: 0, rating: 7 }, { content: H, rating: 8 }, { content: 0, rating: 17 }, { content: 0, rating: 12 }], [{ content: 0, rating: 12 }, { content: 0, rating: 8 }, { content: R, rating: 22 }, { content: R, rating: 23 }, { content: 0, rating: 12 }], [{ content: R, rating: 13 }, { content: 0, rating: 7 }, { content: 0, rating: 7 }, { content: 0, rating: 7 }, { content: 0, rating: 18 }]]
+    rows: 2
+    columns: 2
+    cells: [[{ content: H, rating: 108 }, { content: R, rating: 2 }, { content: H, rating: 3 }], [{ content: H, rating: 117 }, { content: H, rating: 108 }, { content: R, rating: 212 }], [{ content: R, rating: 8 }, { content: 0, rating: 17 }, { content: R, rating: 8 }]]
     turn: Robot

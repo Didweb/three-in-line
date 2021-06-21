@@ -1,11 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Three In Line</h1>
-    <p>
-        Turn <b>{{ board.turn() }}</b>
-        <br> <a href="{{ url('home_page') }}">Reinicair partida</a>
+    <h1>{{ nLine }} In Line</h1>
+        <br> <a href="{{ url('home_page', {'nLine': 2}) }}">New game :3 in Line</a>
+        |  <a href="{{ url('home_page', {'nLine': 3}) }}">4 in Line</a>
+        |  <a href="{{ url('home_page', {'nLine': 4}) }}">5 in Line</a>
+        |  <a href="{{ url('home_page', {'nLine': 5}) }}">6 in Line</a>
+        |  <a href="{{ url('home_page', {'nLine': 6}) }}">7 in Line</a>
+        <script>
+            $("#selectNLines").keyup(
+                function(){
+                    var nline = $("#selectNLines").val();
+
+                    $("#selectNLines").attr("href", "{{ url('home_page') }}");
+                }
+            );
+
+        </script>
     </p>
     {% include 'board.html.twig' %}
-    {{ dump(board) }}
 {% endblock %}
