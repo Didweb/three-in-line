@@ -22,15 +22,15 @@ Con un juego de N en Raya. Tablero dinámico.
 
 ---
 
-###IA
+### IA
 
 El juego esta pensado para ser jugado por un jugador “Humano” y la IA.
 
-###Criterio de IA:
+### Criterio de IA:
 
 La IA actualmente se orienta en bloquear al jugador “Humano”, se puede crear una segunda capa de IA para intentar alcanzar las X en raya. (Próxima versión)
 
-###El criterio de IA bloque o llamado en el contexto “Watcher”.
+### El criterio de IA bloque o llamado en el contexto “Watcher”.
 
 Una vez que el “Humano” realiza la tirada, la IA dará un valor a cada celda, y tirara su turno en la casilla con mayor  valor. En caso de empate se hace un random entre las de mayor puntuación.
 
@@ -47,3 +47,7 @@ Los criterios para valorar los puntos de cada celda. Hace un barrido de las celd
 - Patrón Hexagonal.
 - Para el “Watcher” sistema de IA, se ha creado un factoria de “Watchers” para cada tipo Priomera diagonal, Segunda diagonal, columnas y filas. Lso Watcher extienden de una clase abstracta.
 - CommanHandler, sin llegara usar CQRS, separación de capas con Handler.
+
+---
+
+#### PENDIENTE TESTING
