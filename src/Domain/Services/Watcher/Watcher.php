@@ -55,6 +55,33 @@ abstract class Watcher
         }
     }
 
+    public function fullOfEnemies(): void
+    {
+        if ($this->enemies == $this->totalColumns) {
+            $this->rating = $this->rating + 100;
+        }
+    }
+
+    public function isThereAnyAlliedNoEnemies(): void
+    {
+        if (($this->allies > 0) && ($this->enemies <= 0)) {
+            $this->rating = $this->rating + 5;
+        }
+    }
+
+    public function isThereAnyEnemy(): void
+    {
+        if (($this->allies <= 0) && ($this->enemies > 0)) {
+            $this->rating = $this->rating + 5;
+        }
+    }
+
+    public function lockedAreAlliesAndEnemies(): void
+    {
+        if (($this->allies > 0) && ($this->enemies > 0)) {
+            $this->rating = 0;
+        }
+    }
 
     public function responseData(): array
     {

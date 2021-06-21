@@ -30,25 +30,13 @@ final class WatchDiagonalFirst extends Watcher
             $this->isAllies($nPosition, $nPosition);
         }
 
+        $this->fullOfEnemies();
 
-        if ($this->enemies == $this->totalColumns) {
-            $this->rating = $this->rating + 100;
-        }
+        $this->isThereAnyAlliedNoEnemies();
 
+        $this->isThereAnyEnemy();
 
-        if (($this->allies > 0) && ($this->enemies <= 0)) {
-            $this->rating = $this->rating + 5;
-        }
-
-
-        if (($this->allies <= 0) && ($this->enemies > 0)) {
-            $this->rating = $this->rating + 5;
-        }
-
-
-        if (($this->allies > 0) && ($this->enemies > 0)) {
-            $this->rating = 0;
-        }
+        $this->lockedAreAlliesAndEnemies();
 
         $this->resetEnemiesAndAllies();
         return $this->rating;
