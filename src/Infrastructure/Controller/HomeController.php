@@ -28,7 +28,7 @@ final class HomeController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        dump($request->request->get('nLine'));
+
         $board = $this->repository->getBoardData();
         $nLine = ($request->get('nLine'))?(int)$request->get('nLine'):2;
         $board->buildBoard($nLine);
