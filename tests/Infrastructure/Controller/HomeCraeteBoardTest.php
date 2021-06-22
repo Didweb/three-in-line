@@ -11,7 +11,7 @@ use App\Domain\Repository\BoardRepository;
 use App\Tests\Double\Persistence\Memory\InFileBoardRepositoryStub;
 use PHPUnit\Framework\TestCase;
 
-final class BoardTest extends TestCase
+final class HomeCraeteBoardTest extends TestCase
 {
 
     private BoardRepository $repository;
