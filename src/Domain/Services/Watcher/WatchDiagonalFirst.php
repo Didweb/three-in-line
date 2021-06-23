@@ -20,10 +20,10 @@ final class WatchDiagonalFirst extends Watcher
 
         for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
 
-            if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
-                $this->resetEnemiesAndAllies();
-                return 0;
-            }
+//            if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
+//                $this->resetEnemiesAndAllies();
+//                return 0;
+//            }
 
             $this->isEnemies($nPosition, $nPosition);
 

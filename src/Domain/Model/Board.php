@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Model;
 
+
 final class Board
 {
     private bool $gameIsActive;
@@ -11,6 +12,7 @@ final class Board
     private int $columns;
     private array $cells;
     private string $turn;
+    private string $winner = "0";
 
     public function __construct(
         bool $gameIsActive = true,
@@ -26,11 +28,20 @@ final class Board
         $this->turn = $turn;
     }
 
+    public function theWinnerIs(string $winner): void
+    {
+        $this->winner = $winner;
+    }
+
+    public function winner(): string
+    {
+        return $this->winner;
+    }
+
     public function rows(): int
     {
         return $this->rows;
     }
-
 
 
     public function turn(): string
@@ -53,9 +64,9 @@ final class Board
         $board['board'] = json_encode(
             [
                 'statusGame' => $this->gameIsActive,
-                'rows' => $this->rows,
-                'columns' => $this->columns,
-                'turn' => $this->turn
+                'rows'       => $this->rows,
+                'columns'    => $this->columns,
+                'turn'       => $this->turn
             ]
         );
         return json_encode($board);
@@ -64,7 +75,7 @@ final class Board
 
     public function markCell(string $prefixPlayer, string $namePlayer, int $row, int $column): void
     {
-        if($this->cells[$row][$column]['content'] != 0) {
+        if ($this->cells[$row][$column]['content'] != 0) {
             throw new \Exception('This cell has already been marked. Not free');
         }
         $this->cells[$row][$column]['content'] = $prefixPlayer;
@@ -83,13 +94,11 @@ final class Board
         $cells = [];
         $loop = 0;
         for ($rowLoop = 0; $rowLoop <= $dimension; $rowLoop++) {
-
             for ($columnLoop = 0; $columnLoop <= $dimension; $columnLoop++) {
                 $cells[$rowLoop][$columnLoop] = [
-                                'content' => 0,
-                                'rating' => $this->calculateRating($rowLoop, $columnLoop, $loop)
-                                ];
-
+                    'content' => 0,
+                    'rating' => $this->calculateRating($rowLoop, $columnLoop, $loop)
+                ];
             }
             $loop++;
         }
@@ -103,13 +112,11 @@ final class Board
         $cells = $this->cells;
         $loop = 0;
         for ($rowLoop = 0; $rowLoop <= $this->rows; $rowLoop++) {
-
             for ($columnLoop = 0; $columnLoop <= $this->rows; $columnLoop++) {
                 $cells[$rowLoop][$columnLoop] = [
                     'content' => $cells[$rowLoop][$columnLoop]['content'],
                     'rating' => $this->calculateRating($rowLoop, $columnLoop, $loop)
                 ];
-
             }
             $loop++;
         }
@@ -121,25 +128,24 @@ final class Board
     {
         $rating = 2;
         $valueSum = 0;
-        $realColumn = $this->columns ;
+        $realColumn = $this->columns;
         /** Calculate corners */
-        if(($columnLoop == 0 || $columnLoop == $this->columns)
+        if (($columnLoop == 0 || $columnLoop == $this->columns)
             && ($rowLoop == 0 || $rowLoop == $this->rows)) {
             $valueSum = 1;
         }
 
         /** Calcualte first diagonal*/
-        if($rowLoop == $columnLoop) {
+        if ($rowLoop == $columnLoop) {
             $valueSum = 1;
         }
 
         /** Calcualte second diagonal*/
-        if($columnLoop == ($realColumn - $loop) )  {
+        if ($columnLoop == ($realColumn - $loop)) {
             $valueSum = 1;
         }
 
-        return $rating+$valueSum;
-
+        return $rating + $valueSum;
     }
 
     public function create(
@@ -157,6 +163,7 @@ final class Board
 
         return $this;
     }
+
 
     public function toArray(): array
     {

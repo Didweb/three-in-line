@@ -16,6 +16,9 @@ abstract class Watcher
     protected int $keyRowLoop;
     protected int $keyColumnLoop;
     protected array $cells;
+    protected string $winner = "0";
+
+
 
     public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
     {
@@ -27,6 +30,11 @@ abstract class Watcher
     }
 
     abstract protected function watching(): int;
+
+    public function winner(): string
+    {
+        return $this->winner;
+    }
 
 
 
@@ -86,17 +94,13 @@ abstract class Watcher
         if ($this->allies >= $this->totalColumns
             && $this->enemies == 0 ) {
             $this->rating = $this->rating + 1000;
+            $this->theWinnerIs($this->prefixAllies);
         }
     }
 
-
-    public function responseData(): array
+    public function theWinnerIs(string $winner): void
     {
-        return [
-            'enemies' => $this->enemies,
-            'allies' => $this->allies,
-            'rating' => $this->rating,
-        ];
+        $this->winner = $winner;
     }
 
     public function resetEnemiesAndAllies(): void
@@ -104,5 +108,4 @@ abstract class Watcher
         $this->enemies = 0;
         $this->allies = 0;
     }
-
 }

@@ -10,14 +10,14 @@ use App\Domain\Services\Watcher\WatcherFactory;
 final class Intelligence
 {
     private array $cellsCheck;
-    private int $winIn;
+    private Board $board;
 
     public function bestOption(Board $board): ?array
     {
-        $board->cleanValuesCells();
-        $this->winIn = count($board->cells());
-        $cellsOptions = $this->currentRatings($board->cells());
-        $board->updateRatingsCells($this->cellsCheck);
+        $this->board = $board;
+        $this->board->cleanValuesCells();
+        $cellsOptions = $this->currentRatings($this->board->cells());
+        $this->board->updateRatingsCells($this->cellsCheck);
         $randOption = rand(0, count($cellsOptions) - 1);
 
         if (!isset($cellsOptions[$randOption])) {
@@ -59,9 +59,16 @@ final class Intelligence
 
 
                 $currentRating = $currentRating + $watcherDiagonalFirst->watching();
+                $this->checkWinner($watcherDiagonalFirst->winner());
+
                 $currentRating = $currentRating + $watcherDiagonalSecond->watching();
+                $this->checkWinner($watcherDiagonalSecond->winner());
+
                 $currentRating = $currentRating + $watcherRow->watching();
+                $this->checkWinner($watcherRow->winner());
+
                 $currentRating = $currentRating + $watcherColumn->watching();
+                $this->checkWinner($watcherColumn->winner());
 
 
                 $cells[$keyRow][$keyColumn]['rating'] = $this->ratingForOnlyVoidCells($cells[$keyRow][$keyColumn], $currentRating);
@@ -72,12 +79,20 @@ final class Intelligence
                 }
             }
 
+
             $loop++;
         }
 
         return $this->candidates($cells, $highestScore);
     }
 
+
+    private function checkWinner($winner): void
+    {
+        if($winner != "0") {
+            $this->board->theWinnerIs($winner);
+        }
+    }
 
     private function ratingForOnlyVoidCells(array $cell, int $currentRating): int
     {

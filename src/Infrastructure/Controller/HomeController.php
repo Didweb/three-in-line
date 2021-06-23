@@ -35,7 +35,9 @@ final class HomeController extends AbstractController
         $this->repository->save($board);
 
         return $this->render('home/index.html.twig',
-        ['board' => $board, 'nLine' => $nLine +1 ]
+        ['board' => $board,
+            'nLine' => $nLine +1 ,
+            'isItVictory' => 0]
         );
     }
 

@@ -24,6 +24,10 @@ final class WatcherFactory
             case 'WatchColumn':
                 return new WatchColumn($data['prefixEnemies'], $data['prefixAllies'], $data['totalColumns']);
                 break;
+
+            case 'WatchWinner':
+                return new WatchWinner($data['prefixEnemies'], $data['prefixAllies'], $data['totalColumns']);
+                break;
         }
 
     }
