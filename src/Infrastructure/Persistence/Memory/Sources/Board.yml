@@ -1,6 +1,0 @@
-board:
-    gameIsActive: true
-    rows: 3
-    columns: 3
-    cells: [[{ content: R, rating: 3 }, { content: H, rating: 2 }, { content: R, rating: 7 }, { content: H, rating: 3 }], [{ content: R, rating: 7 }, { content: H, rating: 8 }, { content: H, rating: 3 }, { content: R, rating: 7 }], [{ content: H, rating: 7 }, { content: R, rating: 3 }, { content: R, rating: 8 }, { content: H, rating: 2 }], [{ content: 0, rating: 3 }, { content: 0, rating: 7 }, { content: 0, rating: 7 }, { content: 0, rating: 3 }]]
-    turn: Robot
