@@ -35,6 +35,7 @@ final class WatchDiagonalSecond extends Watcher
 
         $this->lockedAreAlliesAndEnemies();
 
+        $this->ICanWin();
 
         return $this->rating;
     }

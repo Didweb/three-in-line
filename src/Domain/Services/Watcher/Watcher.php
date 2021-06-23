@@ -81,6 +81,15 @@ abstract class Watcher
         }
     }
 
+    public function ICanWin(): void
+    {
+        if ($this->allies >= $this->totalColumns
+            && $this->enemies == 0 ) {
+            $this->rating = $this->rating + 1000;
+        }
+    }
+
+
     public function responseData(): array
     {
         return [

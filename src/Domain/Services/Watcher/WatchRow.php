@@ -30,7 +30,7 @@ final class WatchRow extends Watcher
 
         $this->lockedAreAlliesAndEnemies();
 
-        $this->resetEnemiesAndAllies();
+        $this->ICanWin();
 
         return $this->rating;
     }

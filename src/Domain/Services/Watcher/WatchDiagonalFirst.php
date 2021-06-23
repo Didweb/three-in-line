@@ -38,6 +38,8 @@ final class WatchDiagonalFirst extends Watcher
 
         $this->lockedAreAlliesAndEnemies();
 
+        $this->ICanWin();
+
         return $this->rating;
     }
 }

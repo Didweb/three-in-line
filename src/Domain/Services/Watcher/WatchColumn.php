@@ -29,8 +29,9 @@ final class WatchColumn extends Watcher
 
         $this->lockedAreAlliesAndEnemies();
 
-        $this->resetEnemiesAndAllies();
+        $this->ICanWin();
 
+        $this->resetEnemiesAndAllies();
 
         return $this->rating;
     }

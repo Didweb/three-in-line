@@ -31,7 +31,7 @@ El juego esta pensado para ser jugado por un jugador “Humano” y la IA.
 #### Capa de Bloqueo:
 La IA actualmente se orienta en **bloquear** al jugador “Humano”. tapando las mejores opciones del "Humano" para generar las fichas en linea.
 
-#### Capa de Triunfo: EN PROCESO
+#### Capa de Triunfo: 
 Una vez la IA nos haya encontrado las mejores opciones para bloquearnos. 
 Ha de generar una búsqueda de la mejor celda
 en caso de que pueda ganar la IA, para ponderarla de tal forma que gane la partida.
@@ -39,7 +39,7 @@ en caso de que pueda ganar la IA, para ponderarla de tal forma que gane la parti
 
 
 
-### El criterio de IA "Capa de Bloqueo" o llamado en el contexto “Watcher”.
+#### El criterio de IA "Capa de Bloqueo" o llamado en el contexto “Watcher”.
 
 Una vez que el “Humano” realiza la tirada, la IA dará un valor a cada celda, y tirara su turno en la casilla con mayor  valor. En caso de empate se hace un random entre las de mayor puntuación.
 
@@ -51,7 +51,16 @@ Los criterios para valorar los puntos de cada celda. Hace un barrido de las celd
 - Si falta una ficha “Humana” para completar la raya = suma puntas prioridad máxima para bloque al contrario.
 
 
-**Patrones**:
+#### El criterio de IA "Capa de Triunfo"
+
+Una vez valorados todas las posibilidades de bloqueo. Se valora la posibilidad de ganar.
+
+**Criterio**:
+- Si falta una casilla para ganara y no existe en la "zona" (Fila, columna o diagonal) ninguna ficha enemiga, se pondera como la mejor opcione.
+
+---
+
+### Patrones
 
 - Patrón Hexagonal.
 - Para el “Watcher” sistema de IA, se ha creado un factoria de “Watchers” para cada tipo Priomera diagonal, Segunda diagonal, columnas y filas. Lso Watcher extienden de una clase abstracta.
