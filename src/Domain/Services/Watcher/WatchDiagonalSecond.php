@@ -23,20 +23,19 @@ final class WatchDiagonalSecond extends Watcher
                 $this->isEnemies($nPosition, $loop);
 
                 $this->isAllies($nPosition, $loop);
-
-
-
-                $this->fullOfEnemies();
-
-                $this->isThereAnyAlliedNoEnemies();
-
-                $this->isThereAnyEnemy();
-
-                $this->lockedAreAlliesAndEnemies();
-
-                $loop++;
             }
+            $loop++;
         }
+
+        $this->fullOfEnemies();
+
+        $this->isThereAnyAlliedNoEnemies();
+
+        $this->isThereAnyEnemy();
+
+        $this->lockedAreAlliesAndEnemies();
+
+
         return $this->rating;
     }
 }

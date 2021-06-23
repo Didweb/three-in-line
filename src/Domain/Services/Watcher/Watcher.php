@@ -53,9 +53,9 @@ abstract class Watcher
         }
     }
 
-    public function fullOfEnemies(): void
+    public function fullOfEnemies($pos = '?'): void
     {
-        if ($this->enemies >= $this->totalColumns - 1) {
+        if ($this->enemies >= $this->totalColumns) {
             $this->rating = $this->rating + 100;
         }
     }
