@@ -1,0 +1,6 @@
+board:
+    gameIsActive: true
+    rows: 2
+    columns: 2
+    cells: [[{ content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }], [{ content: 0, rating: 2 }, { content: 0, rating: 3 }, { content: 0, rating: 2 }], [{ content: 0, rating: 3 }, { content: 0, rating: 2 }, { content: 0, rating: 3 }]]
+    turn: Human
