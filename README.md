@@ -80,4 +80,5 @@ Test unitarios:
 - Creación de tablero "Board".
 - Movimineto "Humano".
 - IA Robot en un caso controlado para que mueva ficha en la mejor opción.
+- IA Robot winn.
 
