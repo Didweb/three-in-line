@@ -54,6 +54,20 @@ final class MoveTest extends TestCase
 
     }
 
+    public function test_should_robot_win(): void
+    {
+        $this->board->buildBoard(2);
+
+        $robotPlayer =  new RobotCommandHandler();
+
+        $robotPlayer->move($this->board, 0, 0);
+        $robotPlayer->move($this->board, 1, 1);
+        $robotPlayer->move($this->board, 2, 2);
+
+        $this->assertEquals("R",$this->board->winner());
+
+    }
+
     public function tearDown(): void
     {
         if (file_exists($this->repository::PATH_SOURCES)) {
