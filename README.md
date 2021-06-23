@@ -28,9 +28,18 @@ El juego esta pensado para ser jugado por un jugador “Humano” y la IA.
 
 ### Criterio de IA:
 
-La IA actualmente se orienta en bloquear al jugador “Humano”, se puede crear una segunda capa de IA para intentar alcanzar las X en raya. (Próxima versión)
+#### Capa de Bloqueo:
+La IA actualmente se orienta en **bloquear** al jugador “Humano”. tapando las mejores opciones del "Humano" para generar las fichas en linea.
 
-### El criterio de IA bloque o llamado en el contexto “Watcher”.
+#### Capa de Triunfo: EN PROCESO
+Una vez la IA nos haya encontrado las mejores opciones para bloquearnos. 
+Ha de generar una búsqueda de la mejor celda
+en caso de que pueda ganar la IA, para ponderarla de tal forma que gane la partida.
+
+
+
+
+### El criterio de IA "Capa de Bloqueo" o llamado en el contexto “Watcher”.
 
 Una vez que el “Humano” realiza la tirada, la IA dará un valor a cada celda, y tirara su turno en la casilla con mayor  valor. En caso de empate se hace un random entre las de mayor puntuación.
 
@@ -56,4 +65,10 @@ Se almacenan los datos del tablero en un archivo en formato Yaml. La persistenci
 
 ---
 
-#### PENDIENTE TESTING
+### Testing
+
+Test unitarios:
+- Creación de tablero "Board".
+- Movimineto "Humano".
+- IA Robot en un caso controlado para que mueva ficha en la mejor opción.
+
