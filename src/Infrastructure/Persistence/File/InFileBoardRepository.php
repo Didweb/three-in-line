@@ -38,10 +38,12 @@ class InFileBoardRepository implements BoardRepository
         }
 
         return new Board(
+            $result['board']['prefixHuman'],
+            $result['board']['prefixRobot'],
             $result['board']['gameIsActive'],
             $result['board']['rows'],
             $result['board']['columns'],
-            $result['board']['cells'],
+            $result['board']['cells']
         );
     }
 

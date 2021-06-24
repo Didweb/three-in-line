@@ -5,29 +5,31 @@ declare(strict_types=1);
 namespace App\Domain\Services\Watcher;
 
 
+use App\Domain\Model\Board;
+
 final class WatchDiagonalFirst extends Watcher
 {
 
 
-    public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
+    public function __construct(Board $board)
     {
-        parent::__construct($prefixEnemies,  $prefixAllies, $totalColumns);
+        parent::__construct($board);
         $this->rating = 0;
     }
 
     public function watching(): int
     {
-        $this->countEnemiesAlliesDiagonalFirst();
+        $this->countHumansRobotsDiagonalFirst();
 
-        $this->fullOfEnemies();
+        $this->fullOfHumans();
 
-        $this->isThereAnyAlliedNoEnemies();
+        $this->isThereAnyRobotNoHuman();
 
-        $this->isThereAnyEnemy();
+        $this->isThereAnyHuman();
 
-        $this->lockedAreAlliesAndEnemies();
+        $this->lockedAreRobotsAndHumans();
 
-        $this->ICanWin();
+        $this->RobotCanWin();
 
         return $this->rating;
     }

@@ -12,13 +12,15 @@ class Human implements Player
     const  PREFIX_PLAYER = 'H';
     const  NAME_PLAYER = 'Human';
 
-    public  function move(Board $board, int $row = null, int $column = null): void
+    public  function move(Board $board, int $row = null, int $column = null): Board
     {
-        $intelligent = new Intelligence();
+        $intelligent = new Intelligence($board);
 
         $board->markCell(self::PREFIX_PLAYER, self::NAME_PLAYER, $row, $column);
 
-        $intelligent->verificationWinnerHuman($board);
+        $board = $intelligent->verificationWinnerHuman();
+
+        return  $board;
 
     }
 

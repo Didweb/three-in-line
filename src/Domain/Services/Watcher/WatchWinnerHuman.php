@@ -4,46 +4,32 @@ declare(strict_types=1);
 
 namespace App\Domain\Services\Watcher;
 
+use App\Domain\Model\Board;
 
 final class WatchWinnerHuman extends Watcher
 {
 
-
-
-    public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
+    public function __construct(Board $board)
     {
-        parent::__construct($prefixEnemies,  $prefixAllies, $totalColumns);
+        parent::__construct($board);
         $this->rating = 0;
 
     }
 
     public function watching(): int
     {
-        $this->countEnemiesAlliesDiagonalFirst();
+        $this->countHumansRobotsDiagonalFirst();
         $this->HumanCanWin();
-        if($this->winner() == $this->prefixAllies) {
-            return 1;
-        }
 
-        $this->countEnemiesAlliesDiagonalSecond();
+        $this->countHumansRobotsDiagonalSecond();
         $this->HumanCanWin();
-        if($this->winner() == $this->prefixAllies) {
-            return 1;
-        }
 
-        $this->countEnemiesAlliesRow();
+        $this->countHumansRobotsRow();
         $this->HumanCanWin();
-        if($this->winner() == $this->prefixAllies) {
-            return 1;
-        }
 
-        $this->countEnemiesAlliesColumn();
+        $this->countHumansRobotsColumn();
         $this->HumanCanWin();
-        if($this->winner() == $this->prefixAllies) {
-            return 1;
-        }
-        dump('final=>'.$this->winner());
-        dump('final_enemisis=>'.$this->prefixAllies);
+
         return 0;
     }
 }

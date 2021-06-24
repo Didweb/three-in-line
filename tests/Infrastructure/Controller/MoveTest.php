@@ -37,7 +37,7 @@ final class MoveTest extends TestCase
         $rowSelect = 0;
         $columnSelect = 2;
 
-        $this->board->setEnemiesAllies($robotPlayer::PREFIX_PLAYER, $humanPlayer::PREFIX_PLAYER);
+        $this->board->setPrefixsHumanRobots($robotPlayer::PREFIX_PLAYER, $humanPlayer::PREFIX_PLAYER);
         $humanPlayer->move($this->board, $rowSelect, $columnSelect);
 
         $contentHuman = $this->board->cells()[$rowSelect][$columnSelect]['content'];
@@ -62,7 +62,7 @@ final class MoveTest extends TestCase
         $this->board->buildBoard(2);
         $humanPlayer =  new HumanCommandHandler();
         $robotPlayer =  new RobotCommandHandler();
-        $this->board->setEnemiesAllies($humanPlayer::PREFIX_PLAYER, $robotPlayer::PREFIX_PLAYER);
+        $this->board->setPrefixsHumanRobots($humanPlayer::PREFIX_PLAYER, $robotPlayer::PREFIX_PLAYER);
 
         $robotPlayer->move($this->board, 0, 0);
         $robotPlayer->move($this->board, 1, 1);

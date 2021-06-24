@@ -1,12 +1,13 @@
 <h2>Board</h2>
 {% if  isItVictory == "R" %}<h3 style="color: red;"> HAS PERDIDO!!!</h3>{% endif %}
+{% if  isItVictory == "H" %}<h3 style="color: darkgreen;"> HAS GANADO!!!</h3>{% endif %}
 <table border="1">
 {% for keyRow, rows in board.cells() %}
 <tr>
     {% for keyColumn, columns in rows %}
-      <td>{{ board.cells()[keyRow][keyColumn]['rating'] }}
+        <td><div style="position:absolute; color: dimgray">{{ board.cells()[keyRow][keyColumn]['rating'] }}</div>
             {% if board.cells()[keyRow][keyColumn]['content'] == '0'
-                and isItVictory != "R" %}
+                and isItVictory != "R"%}
                   <a href="{{ url('move_human', {'rowSelect' : keyRow , 'columnSelect': keyColumn}) }}">
                     <img src="{{ asset('images/'~columns['content']~'.png') }}">
                   </a>

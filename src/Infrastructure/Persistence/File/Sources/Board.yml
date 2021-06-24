@@ -1,6 +1,8 @@
 board:
+    prefixHuman: H
+    prefixRobot: R
     gameIsActive: true
     rows: 2
     columns: 2
-    cells: [[{ content: H, rating: 113 }, { content: R, rating: 112 }, { content: H, rating: 108 }], [{ content: R, rating: 112 }, { content: H, rating: 108 }, { content: R, rating: 112 }], [{ content: R, rating: 108 }, { content: 0, rating: 112 }, { content: H, rating: 113 }]]
+    cells: [[{ content: H, rating: 118 }, { content: 0, rating: 117 }, { content: R, rating: 118 }], [{ content: R, rating: 112 }, { content: H, rating: 113 }, { content: 0, rating: 112 }], [{ content: R, rating: 108 }, { content: 0, rating: 117 }, { content: H, rating: 118 }]]
     turn: Robot
