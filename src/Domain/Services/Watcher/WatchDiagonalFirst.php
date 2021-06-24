@@ -17,18 +17,7 @@ final class WatchDiagonalFirst extends Watcher
 
     public function watching(): int
     {
-
-        for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
-
-//            if (($this->keyRowLoop != $nPosition) != ($this->keyColumnLoop != $nPosition)) {
-//                $this->resetEnemiesAndAllies();
-//                return 0;
-//            }
-
-            $this->isEnemies($nPosition, $nPosition);
-
-            $this->isAllies($nPosition, $nPosition);
-        }
+        $this->countEnemiesAlliesDiagonalFirst();
 
         $this->fullOfEnemies();
 

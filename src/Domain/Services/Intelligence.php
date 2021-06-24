@@ -12,6 +12,33 @@ final class Intelligence
     private array $cellsCheck;
     private Board $board;
 
+
+    public function verificationWinnerHuman($board): ?bool
+    {
+        $cells = $board->cells();
+        $watcherData = [
+            'prefixEnemies' => $board->prefixEnemies(),
+            'prefixAllies'  => $board->prefixAllies(),
+            'totalColumns'  => count($cells) - 1
+        ];
+
+        $humanWinn = false;
+        foreach ($cells as $keyRow => $column) {
+            foreach ($column as $keyColumn => $value) {
+
+                $watcherWinnerHuman = WatcherFactory::createrWatcher('WatchWinnerHuman', $watcherData);
+                $watcherWinnerHuman->data($keyRow, $keyColumn, $cells);
+//dump($watcherWinnerHuman->watching());
+                if( $watcherWinnerHuman->watching() == 1){
+                    $humanWinn =  true;
+                }
+            }
+        }
+        return $humanWinn;
+
+    }
+
+
     public function bestOption(Board $board): ?array
     {
         $this->board = $board;
@@ -32,7 +59,6 @@ final class Intelligence
 
     private function currentRatings(): array
     {
-        $loop = 0;
         $highestScore = 0;
         $cells = $this->board->cells();
 
@@ -79,7 +105,6 @@ final class Intelligence
                 }
             }
 
-            $loop++;
         }
 
         return $this->candidates($cells, $highestScore);

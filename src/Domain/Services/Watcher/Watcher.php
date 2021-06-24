@@ -37,7 +37,6 @@ abstract class Watcher
     }
 
 
-
     public function data(int $keyRowLoop, int $keyColumnLoop, array $cells): void
     {
         $this->keyRowLoop = $keyRowLoop;
@@ -98,6 +97,15 @@ abstract class Watcher
         }
     }
 
+    public function HumanCanWin(): void
+    {
+
+        if ($this->allies >= $this->totalColumns
+            && $this->enemies == 0 ) {
+            $this->theWinnerIs($this->prefixAllies);
+        }
+    }
+
     public function theWinnerIs(string $winner): void
     {
         $this->winner = $winner;
@@ -107,5 +115,47 @@ abstract class Watcher
     {
         $this->enemies = 0;
         $this->allies = 0;
+    }
+
+    public function countEnemiesAlliesDiagonalFirst(): void
+    {
+        for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
+
+            $this->isEnemies($nPosition, $nPosition);
+
+            $this->isAllies($nPosition, $nPosition);
+        }
+    }
+
+    public function countEnemiesAlliesDiagonalSecond(): void
+    {
+        $loop = 0;
+
+        for ($nPosition = $this->totalColumns; $nPosition >= 0; $nPosition--) {
+            if (($this->keyColumnLoop == $nPosition) == ($this->keyRowLoop == $loop)) {
+                $this->isEnemies($nPosition, $loop);
+
+                $this->isAllies($nPosition, $loop);
+            }
+            $loop++;
+        }
+    }
+
+    public function countEnemiesAlliesRow(): void
+    {
+        for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
+            $this->isEnemies($this->keyRowLoop, $nPositionColumn);
+
+            $this->isAllies($this->keyRowLoop, $nPositionColumn);
+        }
+    }
+
+    public function countEnemiesAlliesColumn(): void
+    {
+        for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
+            $this->isEnemies($nPositionColumn, $this->keyColumnLoop);
+
+            $this->isAllies($nPositionColumn, $this->keyColumnLoop);
+        }
     }
 }

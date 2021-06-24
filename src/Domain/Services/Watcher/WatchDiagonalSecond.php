@@ -17,16 +17,7 @@ final class WatchDiagonalSecond extends Watcher
     public function watching(): int
     {
 
-        $loop = 0;
-
-        for ($nPosition = $this->totalColumns; $nPosition >= 0; $nPosition--) {
-            if (($this->keyColumnLoop == $nPosition) == ($this->keyRowLoop == $loop)) {
-                $this->isEnemies($nPosition, $loop);
-
-                $this->isAllies($nPosition, $loop);
-            }
-            $loop++;
-        }
+        $this->countEnemiesAlliesDiagonalSecond();
 
         $this->fullOfEnemies();
 

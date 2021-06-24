@@ -36,12 +36,15 @@ final class MoveController extends AbstractController
 
         $humanPlayer =  new HumanCommandHandler();
         $robotPlayer =  new RobotCommandHandler();
-        $board->setEnemiesAllies($robotPlayer::PREFIX_PLAYER, $humanPlayer::PREFIX_PLAYER);
+        $board->setEnemiesAllies($humanPlayer::PREFIX_PLAYER, $robotPlayer::PREFIX_PLAYER, );
 
         $humanPlayer->move($board, $rowSelect, $columnSelect);
-        $robotPlayer->move($board);
 
-        $this->repository->save($board);
+        if($board->winner() != $humanPlayer::PREFIX_PLAYER) {
+
+            $robotPlayer->move($board);
+            $this->repository->save($board);
+        }
 
         $isItVictory = $board->winner();
 

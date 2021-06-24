@@ -15,12 +15,7 @@ final class WatchRow extends Watcher
 
     public function watching(): int
     {
-
-        for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
-            $this->isEnemies($this->keyRowLoop, $nPositionColumn);
-
-            $this->isAllies($this->keyRowLoop, $nPositionColumn);
-        }
+        $this->countEnemiesAlliesRow();
 
         $this->fullOfEnemies();
 

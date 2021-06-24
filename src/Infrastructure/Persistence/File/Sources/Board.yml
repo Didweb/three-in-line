@@ -2,5 +2,5 @@ board:
     gameIsActive: true
     rows: 2
     columns: 2
-    cells: [[{ content: R, rating: 118 }, { content: R, rating: 112 }, { content: H, rating: 108 }], [{ content: H, rating: 112 }, { content: R, rating: 108 }, { content: H, rating: 112 }], [{ content: 0, rating: 113 }, { content: H, rating: 107 }, { content: R, rating: 113 }]]
+    cells: [[{ content: H, rating: 113 }, { content: R, rating: 112 }, { content: H, rating: 108 }], [{ content: R, rating: 112 }, { content: H, rating: 108 }, { content: R, rating: 112 }], [{ content: R, rating: 108 }, { content: 0, rating: 112 }, { content: H, rating: 113 }]]
     turn: Robot
