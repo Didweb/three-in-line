@@ -16,7 +16,7 @@ final class Intelligence
     {
         $this->board = $board;
         $this->board->cleanValuesCells();
-        $cellsOptions = $this->currentRatings($this->board->cells());
+        $cellsOptions = $this->currentRatings();
         $this->board->updateRatingsCells($this->cellsCheck);
         $randOption = rand(0, count($cellsOptions) - 1);
 
@@ -30,16 +30,16 @@ final class Intelligence
     }
 
 
-    private function currentRatings($cells): array
+    private function currentRatings(): array
     {
         $loop = 0;
         $highestScore = 0;
-        $totalColumns = count($cells) - 1;
+        $cells = $this->board->cells();
 
         $watcherData = [
-            'prefixEnemies' => 'H',
-            'prefixAllies' => 'R',
-            'totalColumns' => $totalColumns
+            'prefixEnemies' => $this->board->prefixEnemies(),
+            'prefixAllies'  => $this->board->prefixAllies(),
+            'totalColumns'  => count($cells) - 1
         ];
 
 
@@ -78,7 +78,6 @@ final class Intelligence
                     $highestScore = $currentRating;
                 }
             }
-
 
             $loop++;
         }

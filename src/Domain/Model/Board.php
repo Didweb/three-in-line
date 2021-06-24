@@ -13,6 +13,8 @@ final class Board
     private array $cells;
     private string $turn;
     private string $winner = "0";
+    private string $prefixEnemies;
+    private string $prefixAllies;
 
     public function __construct(
         bool $gameIsActive = true,
@@ -26,6 +28,22 @@ final class Board
         $this->columns = $columns;
         $this->cells = $cells;
         $this->turn = $turn;
+    }
+
+    public function prefixEnemies(): string
+    {
+        return $this->prefixEnemies;
+    }
+
+    public function prefixAllies(): string
+    {
+        return $this->prefixAllies;
+    }
+
+    public function setEnemiesAllies(string $prefixEnemies, string $prefixAllies): void
+    {
+        $this->prefixEnemies = $prefixEnemies;
+        $this->prefixAllies = $prefixAllies;
     }
 
     public function theWinnerIs(string $winner): void
