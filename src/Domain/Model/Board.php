@@ -13,8 +13,13 @@ final class Board
     private array $cells;
     private string $turn;
     private string $winner = "0";
+    private string $prefixHuman;
+    private string $prefixRobot;
+    private int $totalColumns;
 
     public function __construct(
+        string $prefixHuman = 'H',
+        string $prefixRobot = 'R',
         bool $gameIsActive = true,
         int $rows = 0,
         int $columns = 0,
@@ -26,6 +31,24 @@ final class Board
         $this->columns = $columns;
         $this->cells = $cells;
         $this->turn = $turn;
+        $this->prefixHuman = $prefixHuman;
+        $this->prefixRobot = $prefixRobot;
+        $this->totalColumns = $columns;
+    }
+
+    public function totalColumns(): int
+    {
+        return $this->totalColumns;
+    }
+
+    public function prefixHuman(): string
+    {
+        return $this->prefixHuman;
+    }
+
+    public function prefixRobot(): string
+    {
+        return $this->prefixRobot;
     }
 
     public function theWinnerIs(string $winner): void
@@ -64,9 +87,11 @@ final class Board
         $board['board'] = json_encode(
             [
                 'statusGame' => $this->gameIsActive,
-                'rows'       => $this->rows,
-                'columns'    => $this->columns,
-                'turn'       => $this->turn
+                'rows' => $this->rows,
+                'columns' => $this->columns,
+                'turn' => $this->turn,
+                'prefixHuman' => $this->prefixHuman,
+                'PrefixRobot' => $this->prefixRobot,
             ]
         );
         return json_encode($board);
@@ -149,6 +174,8 @@ final class Board
     }
 
     public function create(
+        string $prefixHuman,
+        string $prefixRobot,
         bool $gameIsActive,
         int $rows,
         int $columns,
@@ -160,6 +187,8 @@ final class Board
         $this->columns = $columns;
         $this->cells = $cells;
         $this->turn = $turn;
+        $this->prefixHuman = $prefixHuman;
+        $this->prefixRobot = $prefixRobot;
 
         return $this;
     }
@@ -169,6 +198,8 @@ final class Board
     {
         return [
             'board' => [
+                'prefixHuman' => $this->prefixHuman,
+                'prefixRobot' => $this->prefixRobot,
                 'gameIsActive' => $this->gameIsActive,
                 'rows' => $this->rows,
                 'columns' => $this->columns,

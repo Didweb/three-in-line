@@ -33,8 +33,11 @@ final class MoveTest extends TestCase
     {
         $this->board->buildBoard(2);
         $humanPlayer =  new HumanCommandHandler();
+        $robotPlayer =  new RobotCommandHandler();
         $rowSelect = 0;
         $columnSelect = 2;
+
+        $this->board->setPrefixsHumanRobots($robotPlayer::PREFIX_PLAYER, $humanPlayer::PREFIX_PLAYER);
         $humanPlayer->move($this->board, $rowSelect, $columnSelect);
 
         $contentHuman = $this->board->cells()[$rowSelect][$columnSelect]['content'];
@@ -45,7 +48,7 @@ final class MoveTest extends TestCase
 
         $humanPlayer->move($this->board, 1, 1);
 
-        $robotPlayer =  new RobotCommandHandler();
+
         $robotPlayer->move($this->board);
 
         $contentRobot = $this->board->cells()[2][0]['content'];
@@ -57,8 +60,9 @@ final class MoveTest extends TestCase
     public function test_should_robot_win(): void
     {
         $this->board->buildBoard(2);
-
+        $humanPlayer =  new HumanCommandHandler();
         $robotPlayer =  new RobotCommandHandler();
+        $this->board->setPrefixsHumanRobots($humanPlayer::PREFIX_PLAYER, $robotPlayer::PREFIX_PLAYER);
 
         $robotPlayer->move($this->board, 0, 0);
         $robotPlayer->move($this->board, 1, 1);

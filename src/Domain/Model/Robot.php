@@ -13,15 +13,17 @@ class Robot implements Player
     const  NAME_PLAYER = 'Robot';
     private array $check;
 
-    public  function move(Board $board, int $row =  null, int $column = null): void
+    public  function move(Board $board, int $row =  null, int $column = null): Board
     {
 
-        $intelligence = new Intelligence();
+        $intelligence = new Intelligence($board);
 
-        $bestOption = $intelligence->bestOption($board);
+        $bestOption = $intelligence->bestOption();
         if($bestOption !== null) {
             $board->markCell(self::PREFIX_PLAYER, self::NAME_PLAYER, $bestOption['row'], $bestOption['column']);
         }
+
+        return $board;
 
     }
 

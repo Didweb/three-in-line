@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Domain\Services\Watcher;
 
 
+use App\Domain\Model\Board;
+
 abstract class Watcher
 {
-    protected int $enemies;
-    protected int $allies;
-    protected string $prefixEnemies;
-    protected string $prefixAllies;
+    protected int $humans;
+    protected int $robots;
+    protected string $prefixHuman;
+    protected string $prefixRobot;
     protected int $totalColumns;
     protected int $rating;
     protected int $keyRowLoop;
@@ -20,13 +22,13 @@ abstract class Watcher
 
 
 
-    public function __construct(string $prefixEnemies, string $prefixAllies, int $totalColumns)
+    public function __construct(Board $board)
     {
-        $this->prefixEnemies = $prefixEnemies;
-        $this->prefixAllies = $prefixAllies;
-        $this->totalColumns = $totalColumns;
-        $this->enemies = 0;
-        $this->allies = 0;
+        $this->prefixHuman = $board->prefixHuman();
+        $this->prefixRobot  = $board->prefixRobot();
+        $this->totalColumns  = $board->totalColumns();
+        $this->humans = 0;
+        $this->robots  = 0;
     }
 
     abstract protected function watching(): int;
@@ -37,7 +39,6 @@ abstract class Watcher
     }
 
 
-
     public function data(int $keyRowLoop, int $keyColumnLoop, array $cells): void
     {
         $this->keyRowLoop = $keyRowLoop;
@@ -46,55 +47,63 @@ abstract class Watcher
     }
 
 
-    public function isEnemies(int $nPositionRow, int $nPositionColumn):void
+    public function isHuman(int $nPositionRow, int $nPositionColumn):void
     {
-        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixEnemies) {
-            $this->enemies = $this->enemies + 1;
+        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixHuman) {
+            $this->humans = $this->humans + 1;
         }
 
     }
 
-    public function isAllies(int $nPositionRow, int $nPositionColumn): void
+    public function isRobot(int $nPositionRow, int $nPositionColumn): void
     {
-        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixAllies) {
-            $this->allies = $this->allies + 1;
+        if ((string)$this->cells[$nPositionRow][$nPositionColumn]['content'] == $this->prefixRobot) {
+            $this->robots = $this->robots + 1;
         }
     }
 
-    public function fullOfEnemies($pos = '?'): void
+    public function fullOfHumans(): void
     {
-        if ($this->enemies >= $this->totalColumns) {
+        if ($this->humans >= $this->totalColumns) {
             $this->rating = $this->rating + 100;
         }
     }
 
-    public function isThereAnyAlliedNoEnemies(): void
+    public function isThereAnyRobotNoHuman(): void
     {
-        if (($this->allies > 0) && ($this->enemies <= 0)) {
+        if (($this->robots > 0) && ($this->humans <= 0)) {
             $this->rating = $this->rating + 5;
         }
     }
 
-    public function isThereAnyEnemy(): void
+    public function isThereAnyHuman(): void
     {
-        if (($this->allies <= 0) && ($this->enemies > 0)) {
+        if (($this->robots <= 0) && ($this->humans > 0)) {
             $this->rating = $this->rating + 5;
         }
     }
 
-    public function lockedAreAlliesAndEnemies(): void
+    public function lockedAreRobotsAndHumans(): void
     {
-        if (($this->allies > 0) && ($this->enemies > 0)) {
+        if (($this->robots > 0) && ($this->humans > 0)) {
             $this->rating = 0;
         }
     }
 
-    public function ICanWin(): void
+    public function RobotCanWin(): void
     {
-        if ($this->allies >= $this->totalColumns
-            && $this->enemies == 0 ) {
+        if ($this->robots >= $this->totalColumns
+            && $this->humans == 0 ) {
             $this->rating = $this->rating + 1000;
-            $this->theWinnerIs($this->prefixAllies);
+            $this->theWinnerIs($this->prefixRobot);
+        }
+    }
+
+    public function HumanCanWin(): void
+    {
+        if ($this->humans >= $this->totalColumns +1
+            && $this->robots == 0 ) {
+            $this->theWinnerIs($this->prefixHuman);
         }
     }
 
@@ -103,9 +112,51 @@ abstract class Watcher
         $this->winner = $winner;
     }
 
-    public function resetEnemiesAndAllies(): void
+    public function resetHumansAndRobots(): void
     {
-        $this->enemies = 0;
-        $this->allies = 0;
+        $this->humans = 0;
+        $this->robots = 0;
+    }
+
+    public function countHumansRobotsDiagonalFirst(): void
+    {
+        for ($nPosition = 0; $nPosition < $this->totalColumns + 1; $nPosition++) {
+
+            $this->isHuman($nPosition, $nPosition);
+
+            $this->isRobot($nPosition, $nPosition);
+        }
+    }
+
+    public function countHumansRobotsDiagonalSecond(): void
+    {
+        $loop = 0;
+
+        for ($nPosition = $this->totalColumns; $nPosition >= 0; $nPosition--) {
+            if (($this->keyColumnLoop == $nPosition) == ($this->keyRowLoop == $loop)) {
+                $this->isHuman($nPosition, $loop);
+
+                $this->isRobot($nPosition, $loop);
+            }
+            $loop++;
+        }
+    }
+
+    public function countHumansRobotsRow(): void
+    {
+        for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
+            $this->isHuman($this->keyRowLoop, $nPositionColumn);
+
+            $this->isRobot($this->keyRowLoop, $nPositionColumn);
+        }
+    }
+
+    public function countHumansRobotsColumn(): void
+    {
+        for ($nPositionColumn = 0; $nPositionColumn <= $this->totalColumns; $nPositionColumn++) {
+            $this->isHuman($nPositionColumn, $this->keyColumnLoop);
+
+            $this->isRobot($nPositionColumn, $this->keyColumnLoop);
+        }
     }
 }

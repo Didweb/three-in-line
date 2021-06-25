@@ -35,20 +35,22 @@ final class MoveController extends AbstractController
         $board = $this->repository->getBoardData();
 
         $humanPlayer =  new HumanCommandHandler();
-        $humanPlayer->move($board, $rowSelect, $columnSelect);
-
         $robotPlayer =  new RobotCommandHandler();
-        $robotPlayer->move($board);
+
+
+        $board = $humanPlayer->move($board, $rowSelect, $columnSelect);
+
+        if($board->winner() != $board->prefixHuman()) {
+            $robotPlayer->move($board);
+        }
 
         $this->repository->save($board);
 
         $isItVictory = $board->winner();
 
-        $nLine = (int)$board->rows() + 1;
-
         return $this->render('home/index.html.twig',
                              [ 'board' => $board,
-                               'nLine' => $nLine,
+                               'nLine' => (int)$board->rows() + 1,
                                'isItVictory' => $isItVictory]
         );
     }

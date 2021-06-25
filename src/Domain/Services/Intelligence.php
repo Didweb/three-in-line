@@ -12,11 +12,36 @@ final class Intelligence
     private array $cellsCheck;
     private Board $board;
 
-    public function bestOption(Board $board): ?array
+    public function __construct(Board $board)
     {
         $this->board = $board;
+    }
+
+
+    public function verificationWinnerHuman(): Board
+    {
+        $cells = $this->board->cells();
+        $watcherWinnerHuman = WatcherFactory::createrWatcher('WatchWinnerHuman', $this->board);
+        foreach ($cells as $keyRow => $column) {
+            foreach ($column as $keyColumn => $value) {
+
+
+                $watcherWinnerHuman->data($keyRow, $keyColumn, $cells);
+                $watcherWinnerHuman->watching();
+
+            }
+        }
+
+        $this->board->theWinnerIs($watcherWinnerHuman->winner());
+        return $this->board;
+
+    }
+
+
+    public function bestOption(): ?array
+    {
         $this->board->cleanValuesCells();
-        $cellsOptions = $this->currentRatings($this->board->cells());
+        $cellsOptions = $this->currentRatings();
         $this->board->updateRatingsCells($this->cellsCheck);
         $randOption = rand(0, count($cellsOptions) - 1);
 
@@ -30,27 +55,19 @@ final class Intelligence
     }
 
 
-    private function currentRatings($cells): array
+    private function currentRatings(): array
     {
-        $loop = 0;
         $highestScore = 0;
-        $totalColumns = count($cells) - 1;
-
-        $watcherData = [
-            'prefixEnemies' => 'H',
-            'prefixAllies' => 'R',
-            'totalColumns' => $totalColumns
-        ];
-
+        $cells = $this->board->cells();
 
         foreach ($cells as $keyRow => $column) {
             foreach ($column as $keyColumn => $value) {
                 $currentRating = $cells[$keyRow][$keyColumn]['rating'];
 
-                $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $watcherData);
-                $watcherDiagonalSecond = WatcherFactory::createrWatcher('WatchDiagonalSecond', $watcherData);
-                $watcherRow = WatcherFactory::createrWatcher('WatchRow', $watcherData);
-                $watcherColumn = WatcherFactory::createrWatcher('WatchColumn', $watcherData);
+                $watcherDiagonalFirst = WatcherFactory::createrWatcher('WatchDiagonalFirst', $this->board);
+                $watcherDiagonalSecond = WatcherFactory::createrWatcher('WatchDiagonalSecond', $this->board);
+                $watcherRow = WatcherFactory::createrWatcher('WatchRow', $this->board);
+                $watcherColumn = WatcherFactory::createrWatcher('WatchColumn', $this->board);
 
                 $watcherDiagonalFirst->data($keyRow, $keyColumn, $cells);
                 $watcherDiagonalSecond->data($keyRow, $keyColumn, $cells);
@@ -79,8 +96,6 @@ final class Intelligence
                 }
             }
 
-
-            $loop++;
         }
 
         return $this->candidates($cells, $highestScore);
