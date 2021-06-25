@@ -101,8 +101,7 @@ abstract class Watcher
 
     public function HumanCanWin(): void
     {
-
-        if ($this->humans >= $this->totalColumns
+        if ($this->humans >= $this->totalColumns +1
             && $this->robots == 0 ) {
             $this->theWinnerIs($this->prefixHuman);
         }

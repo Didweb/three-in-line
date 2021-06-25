@@ -21,17 +21,18 @@ final class Intelligence
     public function verificationWinnerHuman(): Board
     {
         $cells = $this->board->cells();
-
+        $watcherWinnerHuman = WatcherFactory::createrWatcher('WatchWinnerHuman', $this->board);
         foreach ($cells as $keyRow => $column) {
             foreach ($column as $keyColumn => $value) {
 
-                $watcherWinnerHuman = WatcherFactory::createrWatcher('WatchWinnerHuman', $this->board);
+
                 $watcherWinnerHuman->data($keyRow, $keyColumn, $cells);
                 $watcherWinnerHuman->watching();
 
             }
         }
 
+        $this->board->theWinnerIs($watcherWinnerHuman->winner());
         return $this->board;
 
     }

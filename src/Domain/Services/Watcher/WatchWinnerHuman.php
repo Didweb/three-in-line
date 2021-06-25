@@ -20,15 +20,19 @@ final class WatchWinnerHuman extends Watcher
     {
         $this->countHumansRobotsDiagonalFirst();
         $this->HumanCanWin();
+        $this->resetHumansAndRobots();
 
         $this->countHumansRobotsDiagonalSecond();
         $this->HumanCanWin();
+        $this->resetHumansAndRobots();
 
         $this->countHumansRobotsRow();
         $this->HumanCanWin();
+        $this->resetHumansAndRobots();
 
         $this->countHumansRobotsColumn();
         $this->HumanCanWin();
+        $this->resetHumansAndRobots();
 
         return 0;
     }

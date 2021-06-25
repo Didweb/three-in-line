@@ -40,7 +40,6 @@ final class MoveController extends AbstractController
 
         $board = $humanPlayer->move($board, $rowSelect, $columnSelect);
 
-dump('------------------------------------_____>>>'.$board->winner());
         if($board->winner() != $board->prefixHuman()) {
             $robotPlayer->move($board);
         }
@@ -48,7 +47,7 @@ dump('------------------------------------_____>>>'.$board->winner());
         $this->repository->save($board);
 
         $isItVictory = $board->winner();
-dump('$isItVictory='.$isItVictory);
+
         return $this->render('home/index.html.twig',
                              [ 'board' => $board,
                                'nLine' => (int)$board->rows() + 1,

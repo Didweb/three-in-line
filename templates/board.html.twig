@@ -7,7 +7,7 @@
     {% for keyColumn, columns in rows %}
         <td><div style="position:absolute; color: dimgray">{{ board.cells()[keyRow][keyColumn]['rating'] }}</div>
             {% if board.cells()[keyRow][keyColumn]['content'] == '0'
-                and isItVictory != "R"%}
+                and isItVictory == "0" %}
                   <a href="{{ url('move_human', {'rowSelect' : keyRow , 'columnSelect': keyColumn}) }}">
                     <img src="{{ asset('images/'~columns['content']~'.png') }}">
                   </a>
